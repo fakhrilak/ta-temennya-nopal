@@ -66,7 +66,10 @@ const Cart = ({order}) => {
           window.location.reload();
         }
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) =>{
+        alert(err.response.data.message)
+        console.log(err.response.data)
+      });
 }
   return (
     <Wrapper title="Cart">

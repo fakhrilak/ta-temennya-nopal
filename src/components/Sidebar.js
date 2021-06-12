@@ -118,7 +118,7 @@ import { connect, useDispatch } from 'react-redux';
               <li className="items-center">
                 <Link
                   className="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
-                  to="/dashboard"
+                  to="/orders"
                 >
                   <i className="fas fa-cart-arrow-down opacity-75 mr-2 text-sm"></i> Order
                 </Link>
@@ -126,7 +126,7 @@ import { connect, useDispatch } from 'react-redux';
               <li className="items-center">
                 <Link
                   className="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
-                  to="/dashboard"
+                  to="/users"
                 >
                   <i className="fas fa-users opacity-75 mr-2 text-sm"></i> Customer
                 </Link>
