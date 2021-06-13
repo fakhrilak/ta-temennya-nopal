@@ -1,18 +1,27 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
 import UserDropdown from './UserDropdown.js';
 
 export default function Navbar({ title }) {
+  const history = useHistory();
+
   return (
     <>
       {/* Navbar */}
       <nav className="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
         <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           {/* Brand */}
+          <span
+            className="text-gray-800 text-sm uppercase hidden lg:inline-block font-semibold cursor-pointer mr-4"
+            onClick={(e) => history.goBack()}
+          >
+            <i class="fas fa-angle-left"></i>
+          </span>
           <a
-            className="text-gray-800 text-sm uppercase hidden lg:inline-block font-semibold"
-            href="#pablo"
+            className="text-gray-800 text-sm uppercase hidden lg:inline-block font-semibold cursor-pointer"
             onClick={(e) => e.preventDefault()}
+            href="/#"
           >
             {title}
           </a>

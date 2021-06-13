@@ -117,6 +117,9 @@ function Login({ login, loading, error, loginAction }) {
                           {formik.errors?.password ?? errorMessage}
                         </p>
                       </div>
+                      {loading && (
+                        <p className="text-center">Logging in... please wait</p>
+                      )}
 
                       <div className="text-center mt-6">
                         <button
