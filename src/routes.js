@@ -12,6 +12,7 @@ import Product from 'views/Product';
 import Cart from 'views/Cart';
 import Orders from 'views/Orders';
 import User from 'views/User';
+import UserTransaksi from 'views/UserTransaksi';
 
 //private route example: https://github.com/shidqi/dumbsound/blob/master/client/src/routes.jsx
 const ProtectRoute = ({ children, isLogin, ...rest }) => {
@@ -86,6 +87,9 @@ const Router = () => {
         </ProtectRoute>
         <ProtectRoute isLogin={isLogin} path="/users">
           <User />
+        </ProtectRoute>
+        <ProtectRoute isLogin={isLogin} path="/user-transaksi">
+          <UserTransaksi />
         </ProtectRoute>
         <ProtectRoute isLogin={isLogin} path="/">
           <Dashboard />

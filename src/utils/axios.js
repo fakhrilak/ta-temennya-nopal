@@ -1,8 +1,9 @@
 import axios from 'axios';
+import envs from '../envs';
 
 // Set config defaults when creating the instance
 export const APIPOS = axios.create({
-  baseURL: `http://dreamtechnology.id/testnode/`,
+  baseURL: envs.URL,
 });
 
 // // Alter defaults after instance has been created
@@ -11,8 +12,3 @@ export const setAPIPOS = (bearer = '', apikey = '') => {
   APIPOS.defaults.headers.common['apikey'] = apikey;
   APIPOS.defaults.headers.common['appnumber'] = '20210316';
 };
-
-
-export const API = axios.create({
-  baseURL : `http://dreamtechnology.id/testnode/v1/`
-})
