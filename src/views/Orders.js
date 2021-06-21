@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Wrapper from 'components/Wrapper'
 import { APIPOS } from 'utils/axios'
 import dayjs from "dayjs"
+import { connect, useDispatch } from 'react-redux'
 
-const Orders = () => {
+const Orders = ({search}) => {
+    const distpatch = useDispatch()
     const [productOrders,setProductOrders]=useState([])
+    const [filteredCountries, setFilteredCountries] = useState([]);
     useEffect(()=>{
         APIPOS.get("api/v1/productorders")
         .then((res)=>{
@@ -13,34 +16,72 @@ const Orders = () => {
         .catch((err)=>{
             console.log(err.response.data)
         })
-    })
+    },[])
 
+    useEffect(()=>{
+        distpatch({
+          type:"clearSearch",
+        })
+      },[])
+    useEffect(()=>{
+        setFilteredCountries(
+            productOrders.filter((order) =>
+              order.orderName.toLowerCase().includes(search.toLowerCase())
+            ))
+    },[search,productOrders])  
+      
     const converTime=(data)=>{
-       return dayjs(data).format("DD MMMM YYYY HH:mm:ss") 
+       return dayjs(data).format("DD MMMM YYYY") 
     }
     return (
         <div>
             <Wrapper title="Orders">
-                <table class="table-fixed ml-40 mr-40 mb-10">
-                    <thead>
-                        <tr>
-                            <th class="w-28 bg-pink-400">Nama</th>
-                            <th class="w-28 bg-pink-400">Paymethod</th>
-                            <th class="w-100 bg-pink-400">Note</th>
-                            <th class="w-1/2 bg-pink-400">Status</th>
-                            <th class="w-100 bg-pink-400">Tanggal</th>
-                            <th class="w-1/2 bg-pink-400">Price</th>
+            <table className="w-full table-auto shadow-lg">
+                        <thead>
+                        <tr className="bg-gray-800">
+                            <th className="py-2 text-sm">
+                            <p className="text-gray-300 text-left">Nama</p>
+                            </th>
+                            <th className="py-2 text-sm">
+                            <span className="text-gray-300">Paymethod</span>
+                            </th>
+                            <th className="py-2 text-sm">
+                            <span className="text-gray-300">Note</span>
+                            </th>
+
+                            <th className="py-2 text-sm">
+                            <span className="text-gray-300">Status</span>
+                            </th>
+
+                            <th className="py-2 text-sm">
+                            <span className="text-gray-300">Tanggal</span>
+                            </th>
+                            <th className="py-2 text-sm">
+                            <span className="text-gray-300">Price</span>
+                            </th>
                         </tr>
-                    </thead>
+                        </thead>        
                         <tbody>
-                            {productOrders.length > 0 ? productOrders.map((data)=>(
+                            {productOrders.length > 0 ? filteredCountries.map((data)=>(
                                 <tr>
-                                    <td class="w-1/4 text-center">{data.orderName}</td>
-                                    <td class="w-1/4 text-center">{data.paymentMethod}</td>
-                                    <td class="w-1/4 text-center">{data.orderNote}</td>
-                                    <td class="w-1/4 text-center">{data.orderStatus}</td>
-                                    <td class="w-1/4 text-center">{converTime(data.orderDate)}</td>
-                                    <td class="w-1/4 text-center">{data.priceOrder}</td>
+                                    <td className="py-1 px-1">
+                                        <p className="text-gray-800 font-normal text-center">{data.orderName}</p>
+                                    </td>
+                                    <td className="py-1 px-1">
+                                        <p className="text-gray-800 font-normal text-center">{data.paymentMethod}</p>
+                                    </td>
+                                    <td className="py-1 px-1">
+                                        <p className="text-gray-800 font-normal text-center">{data.orderNote}</p>
+                                    </td>
+                                    <td className="py-1 px-1">
+                                        <p className="text-gray-800 font-normal text-center">{data.orderStatus}</p>
+                                    </td>
+                                    <td className="py-1 px-1">
+                                        <p className="text-gray-800 font-normal text-center">{converTime(data.orderDate)}</p>
+                                    </td>
+                                    <td className="py-1 px-1">
+                                        <p className="text-gray-800 font-normal text-center">{data.priceOrder}</p>
+                                    </td>
                                 </tr>
                             )):null}
                         </tbody>
@@ -50,4 +91,10 @@ const Orders = () => {
     )
 }
 
-export default Orders
+const mapStateToProps = (state) => {
+    return {
+      search: state.AuthReducer.search
+    };
+  };
+  
+  export default connect(mapStateToProps, {})(Orders);

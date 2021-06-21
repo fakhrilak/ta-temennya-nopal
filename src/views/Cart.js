@@ -73,14 +73,14 @@ const Cart = ({order}) => {
 }
   return (
     <Wrapper title="Cart">
-      <div className="text-center w-full">
-        <table class="table-fixed ml-40 mr-40 mb-10">
-          <thead>
-            <tr>
-              <th class="w-28 bg-pink-400">Nama barang</th>
-              <th class="w-28 bg-pink-400">Harga</th>
-              <th class="w-100 bg-pink-400">Jumpah</th>
-              <th class="w-1/2 bg-pink-400">Total Harga</th>
+      <div className="text-center w-full text-align">
+        {orderDetail.length > 0 && <table class="table-fixed ml-40 mr-40 mb-10">
+          <thead className="bg-pink-400 rounded"> 
+            <tr className="text-center text-white">
+              <th class="w-1/4 p-2 font-sans">Nama barang</th>
+              <th class="w-28 ">Harga</th>
+              <th class="w-100 ">Jumlah</th>
+              <th class="w-1/2 ">Total Harga</th>
             </tr>
           </thead>
           <tbody>
@@ -108,7 +108,7 @@ const Cart = ({order}) => {
                   <td class="w-1/4 text-center">{TotalHarga(orderDetail)}</td>
               </tr>:null}
           </tbody>
-        </table>
+        </table>}
       </div>
       <div className="w-full bg-pink-400 text-center">
               <div>

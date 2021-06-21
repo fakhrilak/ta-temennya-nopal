@@ -7,25 +7,28 @@ import * as Yup from 'yup';
 import Wrapper from 'components/Wrapper';
 import Card from 'components/Card';
 import { APIPOS } from 'utils/axios';
+import {connect} from "react-redux"
 
-
-function Product() {
+function Product({search}) {
   const [products,setProduct]=useState([])
+  const [filtered, setFiltered] = useState([]);
+
   useEffect(()=>{
     APIPOS.get('api/v1/products')
       .then((res) =>setProduct(res.data.data.products))
       .catch((err) => console.log(err));
   },[])
-  console.log({
-    "productId": 1,
-    "unitPrice": 5100,
-    "qty": 3,
-    "discount": 200
-})
+  useEffect(()=>{
+    setFiltered(
+        products.filter((product) =>
+          product.productName.toLowerCase().includes(search.toLowerCase())
+        ))
+  },[search,products])  
+  
   return (
     <Wrapper title="Products">
       <div className="px-8 flex flex-wrap">
-        {products.length>0 ? products.map((data,index)=>(
+        {products.length>0 ? filtered.map((data,index)=>(
           <Card name={data.productName} 
           stock={data.stock} 
           price={data.price} 
@@ -39,4 +42,10 @@ function Product() {
   );
 }
 
-export default Product;
+const mapStateToProps = (state) => {
+  return {
+    search: state.AuthReducer.search
+  };
+};
+
+export default connect(mapStateToProps, {})(Product);

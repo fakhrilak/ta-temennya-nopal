@@ -8,16 +8,19 @@ import { APIPOS } from 'utils/axios';
 import dayjs from 'dayjs';
 import ListUsers from 'components/ListUsers';
 import ListUsersTransaksi from 'components/ListUsersTransaksi';
-
-const User = () => {
+import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+const User = ({search}) => {
+  const distpatch = useDispatch()
   let [users, setUsers] = useState([]);
   let [usersTransaksi, setUsersTransaksi] = useState([]);
   let [type, setType] = useState('listUsers');
+  const [filtered, setFiltered] = useState([]);
+  
 
   useEffect(() => {
     APIPOS.get('api/v1/users')
       .then((res) => {
-        console.log(res.data);
         setUsers(res.data.data.users);
       })
       .catch((err) => {
@@ -40,8 +43,17 @@ const User = () => {
     setType('transaksiUser');
   };
 
-  console.log(type);
-
+  useEffect(()=>{
+    distpatch({
+      type:"clearSearch",
+    })
+  },[])
+  useEffect(()=>{
+      setFiltered(
+        users.filter((user) =>
+          user.name.toLowerCase().includes(search.toLowerCase())
+        ))
+},[search,users])  
   return (
     <div>
       <Wrapper title="Customers">
@@ -67,7 +79,7 @@ const User = () => {
             </a>
           </p>
 
-          {type === 'listUsers' && <ListUsers users={users} />}
+          {type === 'listUsers' && <ListUsers users={filtered} />}
           {type === 'transaksiUser' && <ListUsersTransaksi users={usersTransaksi} />}
         </div>
       </Wrapper>
@@ -75,4 +87,11 @@ const User = () => {
   );
 };
 
-export default User;
+const mapStateToProps = (state) => {
+  return {
+    search: state.AuthReducer.search
+  };
+};
+
+export default connect(mapStateToProps, {})(User);
+

@@ -4,6 +4,7 @@ const initialState = {
   login: {},
   loading: false,
   error: null,
+  search:""
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -21,7 +22,17 @@ const AuthReducer = (state = initialState, action) => {
         login: payload,
         loading: false,
       };
-
+    case "onShearch":
+      console.log(payload)
+      return{
+        ...state,
+        search:payload
+      }
+    case "clearSearch":
+      return{
+        ...state,
+        search:""
+      }
     case LOGIN_FAIL:
       return {
         ...state,

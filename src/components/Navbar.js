@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import UserDropdown from './UserDropdown.js';
 
 export default function Navbar({ title }) {
+  const dispatch = useDispatch()
+  const [search,setSearch] = useState("")
   const history = useHistory();
-
+  console.log(search)
+  
+  useEffect(()=>{
+    dispatch({
+      type: "onShearch",
+      payload:search
+    })
+  },[search])
   return (
     <>
       {/* Navbar */}
@@ -34,6 +44,8 @@ export default function Navbar({ title }) {
               <input
                 type="text"
                 placeholder="Search here..."
+                value={search}
+                onChange={(e)=>setSearch(e.target.value)}
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
               />
             </div>
