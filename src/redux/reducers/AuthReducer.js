@@ -4,7 +4,8 @@ const initialState = {
   login: {},
   loading: false,
   error: null,
-  search:""
+  search:"",
+  user : {}
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -21,9 +22,9 @@ const AuthReducer = (state = initialState, action) => {
         ...state,
         login: payload,
         loading: false,
+        user: payload.data.user
       };
     case "onShearch":
-      console.log(payload)
       return{
         ...state,
         search:payload

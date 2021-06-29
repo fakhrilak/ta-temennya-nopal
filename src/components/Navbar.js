@@ -8,7 +8,6 @@ export default function Navbar({ title }) {
   const dispatch = useDispatch()
   const [search,setSearch] = useState("")
   const history = useHistory();
-  console.log(search)
   
   useEffect(()=>{
     dispatch({
@@ -16,6 +15,7 @@ export default function Navbar({ title }) {
       payload:search
     })
   },[search])
+  
   return (
     <>
       {/* Navbar */}

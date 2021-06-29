@@ -144,7 +144,7 @@ const Cart = ({order}) => {
                     onChange={(e)=>setPaymethod(e.target.value)}
                   >
                       <option value={"TRANSFERBANK"}>{"TRANSFERBANK"}</option>
-                      <option value={"TRANSFERBANK"}>{"VIRTUAL ACCOUNT"}</option>    
+                      <option value={"TUNAI"}>{"TUNAI"}</option>    
                   </select>
               </div>
               <div>

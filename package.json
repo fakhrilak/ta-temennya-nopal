@@ -9,6 +9,7 @@
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
     "chart.js": "2.9.4",
+    "craco": "0.0.3",
     "dayjs": "^1.10.5",
     "formik": "^2.2.9",
     "js-cookie": "^2.2.1",
@@ -22,6 +23,7 @@
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
+    "start": "^5.1.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2",
     "yup": "^0.32.9"
   },

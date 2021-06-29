@@ -7,15 +7,22 @@ import * as Yup from 'yup';
 import Wrapper from 'components/Wrapper';
 import Card from 'components/Card';
 import { APIPOS } from 'utils/axios';
-import {connect} from "react-redux"
+import {connect, useDispatch} from "react-redux"
 
 function Product({search}) {
   const [products,setProduct]=useState([])
   const [filtered, setFiltered] = useState([]);
-
+  const dispatch = useDispatch()
   useEffect(()=>{
     APIPOS.get('api/v1/products')
-      .then((res) =>setProduct(res.data.data.products))
+      .then((res) =>{
+        setProduct(res.data.data.products)
+        dispatch({
+          type:"SET PRODUCT",
+          payload:res.data.data.products
+        })
+        console.log("memek")
+      })
       .catch((err) => console.log(err));
   },[])
   useEffect(()=>{

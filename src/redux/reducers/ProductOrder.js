@@ -2,6 +2,8 @@ const initialState = {
     orderDetail:[],
     loading: false,
     error: null,
+    ResorderDetails:[],
+    product:[]
   };
   const ReportReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -12,7 +14,17 @@ const initialState = {
           ...state,
           orderDetail: payload
         };
-
+      case "RES ORDERS":
+        return {
+          ...state,
+          ResorderDetails:payload
+        }
+      case "SET PRODUCT":
+        console.log(payload,"di redux")
+        return{
+          ...state,
+          product:payload
+        }
       case "ADD QTY":
         return{
           ...state,
